@@ -2,6 +2,7 @@ import { LOGIN } from "./types";
 import { NavigationActions } from "react-navigation";
 
 export const loginSuccess = (user) => {
+    console.log('1');
     return(dispatch) =>{
         dispatch({
             type: LOGIN,

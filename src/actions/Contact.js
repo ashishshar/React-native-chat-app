@@ -5,7 +5,9 @@ import {
     FETCH_CONTACT_ERROR
 } from './types';
 
-export const fetchListContact = ({ me }) =>{
+export const fetchListContact = ({ }) =>{
+    const me = firebase.auth().currentUser;
+    console.log(me);
     return (dispatch) => {
         /**
          * on: check network => compare local => aync

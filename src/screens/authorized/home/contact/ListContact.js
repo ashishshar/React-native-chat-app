@@ -1,15 +1,12 @@
 import React, { Component} from 'react';
 import {
-    StyleSheet,
     View,
     Text,
     Image,
-    Button,
     ListView,
     ActivityIndicator,
     TouchableOpacity
 } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 //import { DrawerButton} from '../../../../components/DrawerButton';
 import { fetchListContact } from '../../../../actions';
@@ -18,16 +15,13 @@ class ListContact extends Component{
         title: 'Contacts'
     }
     componentWillMount(){
-        console.log('first');
+        console.log(this.props);
         this.props.fetchListContact(this.props);
         this.createDataSource(this.props);
-        console.log('Second');
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('third');
         this.createDataSource(nextProps);
-        console.log('forth');
     }
 
     createDataSource({contacts}){
@@ -103,5 +97,4 @@ const styles = {
 export default connect(state => ({ 
     contacts: state.contact.contacts, 
     loading: state.contact.loading,
-    me: state.authentication.user,
 }), { fetchListContact })(ListContact);
