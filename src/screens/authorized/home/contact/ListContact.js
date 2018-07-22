@@ -8,23 +8,24 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-//import { DrawerButton} from '../../../../components/DrawerButton';
 import { fetchListContact } from '../../../../actions';
 class ListContact extends Component{
     static navigationOptions = {
         title: 'Contacts'
     }
     componentWillMount(){
-        console.log(this.props);
+       
         this.props.fetchListContact(this.props);
         this.createDataSource(this.props);
     }
 
     componentWillReceiveProps(nextProps){
+       
         this.createDataSource(nextProps);
     }
 
     createDataSource({contacts}){
+
         const ds = new ListView.DataSource({
             rowHasChanged:(r1, r2) => r1!==r2
         });
@@ -32,6 +33,7 @@ class ListContact extends Component{
     }
 
     onRowPressed = (friend) =>{
+        //console.log('friend', friend);
         this.props.navigation.navigate('Conversation', {friend});
     }
 
@@ -70,18 +72,18 @@ const styles = {
         flex:1
     },
     containerIndecator:{
-        // flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     row:{
-        // flexDirection: 'row',
-        // justifyContent:'flex-start',
-        // alignItems: 'center',
-        // height:50,
-        // backgroundColor:'#ccc',
-        // borderBottomWidth: 1,
-        // borderBottomColor:'red'
+        flexDirection: 'row',
+        justifyContent:'flex-start',
+        alignItems: 'center',
+        height:50,
+        backgroundColor:'#ccc',
+        borderBottomWidth: 1,
+        borderBottomColor:'red'
     },
     avator:{
         width:50,
@@ -93,8 +95,12 @@ const styles = {
         paddingLeft: 15,
     }
 }
+const mapStateToProps = (state) => {
+    console.log('mapStateToProps list', state);
+    return {
+        contacts: state.contact.contacts,
+        loading: state.contact.loading,
+    };
+};
 
-export default connect(state => ({ 
-    contacts: state.contact.contacts, 
-    loading: state.contact.loading,
-}), { fetchListContact })(ListContact);
+export default connect(mapStateToProps, { fetchListContact })(ListContact);

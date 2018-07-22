@@ -1,131 +1,106 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     View,
     Text,
+    Image,
     ListView,
-    Image
+    ActivityIndicator,
+    TouchableOpacity
 } from 'react-native';
-
-export default class ListChat extends Component {
+import { connect } from 'react-redux';
+import { fetchListContact } from '../../../../actions';
+class ListChat extends Component {
     static navigationOptions = {
-        title: 'Chat'
-    };
-    state = {
-        friends: [
-            {
-                name: "Person Name 1",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 2",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 3",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 4",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 5",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 6",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 7",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 8",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 9",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 10",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 11",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            }
-        ]
-    };
+        title: 'Chats'
+    }
     componentWillMount() {
+
+        this.props.fetchListContact(this.props);
+        this.createDataSource(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        this.createDataSource(nextProps);
+    }
+
+    createDataSource({ contacts }) {
+
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        this.dataSource = ds.cloneWithRows(this.state.friends);
-    }
-    renderRow = (item) => {
-        return (
-            <View style={styles.itemContainer}>
-                <Image source={{ uri: item.avator }} style={styles.itemAvator} />
-                <Text style={styles.itemName}>
-                    {item.name}
-                </Text>
-            </View>
-        );
-    }
-    renderSeparator = (sectionID, rowID) => {
-        return <View key={`${sectionID}- ${rowID}`} style={styles.seperator} />;
+        this.dataSource = ds.cloneWithRows(contacts);
     }
 
+    onRowPressed = (friend) => {
+        //console.log('friend', friend);
+        this.props.navigation.navigate('Chat', { friend });
+    }
+
+    renderRow = (item) => {
+        return (
+            <TouchableOpacity onPress={this.onRowPressed.bind(this, item)} style={styles.row}>
+
+                <Image source={{ uri: item.photoURL }} style={styles.avator} />
+                <Text style={styles.name}>{item.displayName}</Text>
+
+            </TouchableOpacity>
+        );
+    }
     render() {
+        if (this.props.loading) {
+            return (
+                <View style={styles.containerIndecator}>
+                    <ActivityIndicator size="large" color="red" animating />
+                </View>
+            )
+        }
         return (
             <View style={styles.container}>
                 <ListView
                     enableEmptySections
                     dataSource={this.dataSource}
-                    renderRow={this.renderRow}
-                    renderSeparator={this.renderSeparator}
+                    renderRow={this.renderRow.bind(this)}
                 />
             </View>
-        );
+        )
     }
 }
 
 const styles = {
     container: {
-        flex: 1,
+        flex: 1
     },
-    itemContainer: {
+    containerIndecator: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    row: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        height: 60,
-    },
-    itemAvator: {
-        width: 60,
-        height: 60,
-    },
-    itemName: {
-        paddingLeft: 15,
-        //fontSize: 16,
-        color: '#444'
-    },
-    seperator: {
+        height: 50,
+        backgroundColor: '#ccc',
         borderBottomWidth: 1,
-        borderBottomColor: '#444',
+        borderBottomColor: 'red'
+    },
+    avator: {
+        width: 50,
+        height: 50,
+        borderWidth: 1
+    },
+    name: {
+        // fontSize: 18,
+        paddingLeft: 15,
     }
-
 }
+const mapStateToProps = (state) => {
+    console.log('mapStateToProps list', state);
+    return {
+        contacts: state.contact.contacts,
+        loading: state.contact.loading,
+    };
+};
+
+export default connect(mapStateToProps, { fetchListContact })(ListChat);

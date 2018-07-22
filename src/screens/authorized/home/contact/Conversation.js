@@ -8,30 +8,36 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { findRoomByUser, sendMessage } from '../../../../actions';
+import { findRoomByUser, sendMessage, } from '../../../../actions';
 import firebase from 'firebase';
-
+//const messages = [];
+//const roomKey = null;
 class Conversation extends Component {
-    static navigationOptions = {
-        //title: ({ state }) => state.params.friend.displayName,
-        // tabBar: {
-        //     visible: false
-        // }
-    }
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.state.params.friend.displayName
+    })
+    // tabBar: {
+    //     visible: false
+    // }
     //const me = firebase.auth().currentUser;
+
+    state = {
+        messages: [],
+    }
     componentWillMount() {
         const { me } = this.props;
         const { friend } = this.props.navigation.state.params;
         this.props.findRoomByUser(me, friend);
-        console.log('key', this.props);
     }
 
+     
     onSend = (messages = []) => {
-        //console.log('key', this.props);
         const { me, roomKey } = this.props;
         const { friend } = this.props.navigation.state.params;
-       
         this.props.sendMessage(me, friend, messages[0].text, roomKey);
+        this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, messages),
+        }))
     }
 
     render() {
@@ -42,8 +48,10 @@ class Conversation extends Component {
                 </View>
             );
         }
+        //console.log(this.state);
         return (
             <View style={styles.container}>
+
                 <GiftedChat
                     messages={this.props.messages}
                     user={{
@@ -67,9 +75,14 @@ const styles = {
     }
 };
 
-export default connect(state => ({
-    me: firebase.auth().currentUser,
-    loading: state.chat.loading,
-    messages: state.chat.messages,
-    roomKey: state.chat.roomKey
-}), { findRoomByUser, sendMessage })(Conversation);
+const mapStateToProps = (state) => {
+    console.log('mapStateToProps', state);
+    return {
+        me: firebase.auth().currentUser,
+        loading: state.chat.loading,
+        messages: state.chat.messages,
+        roomKey: state.chat.roomKey
+    };
+};
+
+export default connect(mapStateToProps , { findRoomByUser, sendMessage })(Conversation);

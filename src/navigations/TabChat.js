@@ -1,9 +1,9 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ListChat from '../screens/authorized/home/chat/ListChat';
 import AddChat from '../screens/authorized/home/chat/AddChat';
-import EditChat from '../screens/authorized/home/chat/EditChat';
+import Chat from '../screens/authorized/home/chat/EditChat';
 import ViewChat from '../screens/authorized/home/chat/ViewChat';
 import { TabNavigator } from 'react-navigation';
 const TabChat = createStackNavigator({
@@ -15,7 +15,7 @@ const TabChat = createStackNavigator({
         }
     },
     Add: { screen: AddChat },
-    edit: { screen: EditChat },
+    Chat: { screen: Chat },
     View: { screen: ViewChat }
 });
 

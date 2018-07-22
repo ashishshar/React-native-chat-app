@@ -1,130 +1,88 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     View,
-    Text, 
-    ListView, 
-    Image
+    Text,
+    ListView,
+    Image,
+    ActivityIndicator
 } from 'react-native';
+import { connect } from 'react-redux';
+import { GiftedChat } from 'react-native-gifted-chat';
+import { findRoomByUser, sendMessage, } from '../../../../actions';
+import firebase from 'firebase';
+//const messages = [];
+//const roomKey = null;
+class Chat extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.state.params.friend.displayName
+    })
+    // tabBar: {
+    //     visible: false
+    // }
+    //const me = firebase.auth().currentUser;
 
-export default class Login extends Component {
     state = {
-        friends : [
-            {
-                name : "Person Name 1",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 2",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 3",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 4",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 5",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 6",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 7",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 8",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 9",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 10",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            },
-            {
-                name: "Person Name 11",
-                age: 27,
-                avator: 'https://cdn.pixabay.com/photo/2013/07/13/13/38/man-161282_960_720.png'
-            }
-        ]
-    }; 
-    componentWillMount(){
-        const ds = new ListView.DataSource({
-            rowHasChanged:(r1, r2) => r1 !== r2
-        });
-        this.dataSource = ds.cloneWithRows(this.state.friends);
+        messages: [],
     }
-    renderRow = (item) =>{
-        return(
-            <View style={styles.itemContainer}>
-                <Image source={{ uri: item.avator }} style={styles.itemAvator}/>
-                <Text style={styles.itemName}>
-                    {item.name}
-                </Text>
-            </View>
-        );
+    componentWillMount() {
+        const { me } = this.props;
+        const { friend } = this.props.navigation.state.params;
+        this.props.findRoomByUser(me, friend);
     }
-    renderSeparator = (sectionID, rowID) =>{
-        return <View key={`${sectionID}- ${rowID}`} style={ styles.seperator}/>;
+
+
+    onSend = (messages = []) => {
+        const { me, roomKey } = this.props;
+        const { friend } = this.props.navigation.state.params;
+        this.props.sendMessage(me, friend, messages[0].text, roomKey);
+        this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, messages),
+        }))
     }
 
     render() {
+        if (this.props.loading) {
+            return (
+                <View style={styles.containerIndicator}>
+                    <ActivityIndicator size="large" color="purple" animating />
+                </View>
+            );
+        }
+        //console.log(this.state);
         return (
             <View style={styles.container}>
-               <ListView
-                enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-                renderSeparator={this.renderSeparator}
-               />
+
+                <GiftedChat
+                    messages={this.props.messages}
+                    user={{
+                        _id: this.props.me.uid
+                    }}
+                    onSend={this.onSend.bind(this)}
+                />
             </View>
         );
     }
 }
 
 const styles = {
-    container : {
+    containerIndicator: {
         flex: 1,
-        paddingTop: 60,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    itemContainer:{
-        flexDirection: 'row',
-        justifyContent:'flex-start',
-        alignItems: 'center',
-        height:60,
-    },
-    itemAvator:{
-        width:60,
-        height:60,
-        color:'#333' 
-    },
-    itemName: {
-        paddingLeft: 15,
-        fontSize: 16,
-        color:'#333'
-    },
-    seperator:{
-        borderBottomWidth: 1,
-        borderBottomColor: '#444',
+    container: {
+        flex: 1
     }
+};
 
-}
+const mapStateToProps = (state) => {
+    console.log('mapStateToProps', state);
+    return {
+        me: firebase.auth().currentUser,
+        loading: state.chat.loading,
+        messages: state.chat.messages,
+        roomKey: state.chat.roomKey
+    };
+};
+
+export default connect(mapStateToProps, { findRoomByUser, sendMessage })(Chat);

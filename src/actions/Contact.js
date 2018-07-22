@@ -7,19 +7,8 @@ import {
 
 export const fetchListContact = ({ }) =>{
     const me = firebase.auth().currentUser;
-    console.log(me);
-    return (dispatch) => {
-        /**
-         * on: check network => compare local => aync
-         * once: connect db and fetch once, read persisted data (on phone)
-         * value, chlid_added, changed etc.....
-         * JSON tree
-         * Object
-         *  Object
-         *  Object etc...
-         */
-        firebase.database().ref('users')
-        .on('value', snap =>{
+        return (dispatch) => {
+        firebase.database().ref('users').on('value', snap =>{
             const contacts = [];
             snap.forEach(contact => {
                 if(contact.key != me.uid){
@@ -33,7 +22,6 @@ export const fetchListContact = ({ }) =>{
                 }
                 
             });
-            //console.log('contacts',contacts);
 
             dispatch({
                 type: FETCH_CONTACT_SUCCESS,

@@ -1,35 +1,19 @@
-// import React from 'react';
-// //import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { createStackNavigator } from 'react-navigation';
-// import {
-//     reduxifyNavigator,
-//     createReactNavigationReduxMiddleware,
-// } from 'react-navigation-redux-helpers';
+import React, { Component } from 'react';
+import { addNavigationHelpers } from 'react-navigation';
+import { connect } from 'react-redux';
+import Root from './navigations/Root';
 
-// import Authorized from './navigations/Authorized';
+class AppNavigator extends Component {
+    render() {
+        return (
+            <Root
+                navigation={addNavigationHelpers({
+                    dispatch: this.props.dispatch,
+                    state: this.props.nav
+                })}
+            />
+        );
+    }
+}
 
-// import Login from './screens/unauthorized/';
-
-// const middleware = createReactNavigationReduxMiddleware(
-//     'root',
-//     state => state.nav
-// );
-
-// const RootNavigator = createStackNavigator({
-//     Unauthorized: { screen: Login },
-//     Authorized: { screen: Authorized },
-// },
-//     {
-//         headerMode: 'screen'
-//     }
-// );
-// const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
-
-// const mapStateToProps = state => ({
-//     state: state.nav,
-// });
-
-// const AppNavigator = connect(mapStateToProps)(AppWithNavigationState);
-
-// export default  AppNavigator;
+export default connect(state => ({ nav: state.nav }))(AppNavigator);
