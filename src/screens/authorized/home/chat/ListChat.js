@@ -120,7 +120,7 @@ const styles = {
     },
     itemName: {
         paddingLeft: 15,
-        fontSize: 16,
+        //fontSize: 16,
         color: '#444'
     },
     seperator: {

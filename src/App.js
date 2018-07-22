@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View
-} from 'react-native';
 import { Provider } from 'react-redux';
-//import AppNavigator from './AppNavigator';
 import Login from './screens/unauthorized/Login';
 import store from './store';
-import Authorized from './navigations/Authorized';
 import * as firebase from 'firebase';
+import Home from './navigations/Home';
 const firebaseConfig = {
   apiKey: "AIzaSyDx28-OWpArp_y8llth8Go5-E3lDLXe-js",
   authDomain: "portfoliopro-68771.firebaseapp.com",
@@ -38,11 +33,11 @@ export default class App extends Component{
   renderInitial() {
     switch (this.state.loggedIn) {
       case true:
-        return <Authorized />;
+        return <Home />;
       case false:
         return <Login />;
       default:
-        return <Login />
+        return <Login />;
     }
   };
   render() {

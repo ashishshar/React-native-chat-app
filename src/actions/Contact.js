@@ -23,11 +23,17 @@ export const fetchListContact = ({ }) =>{
             const contacts = [];
             snap.forEach(contact => {
                 if(contact.key != me.uid){
-                    contacts.push(contact.val());
+                    const ct = contact.val();
+                    contacts.push({
+                        uid: contact.key,
+                        displayName: ct.displayName,
+                        email: ct.email,
+                        photoURL: ct.photoURL
+                    });
                 }
                 
             });
-            console.log('contacts',contacts);
+            //console.log('contacts',contacts);
 
             dispatch({
                 type: FETCH_CONTACT_SUCCESS,

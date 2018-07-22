@@ -1,10 +1,11 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { TabNavigator, TabView } from 'react-navigation';
+import { createBottomTabNavigator, TabView } from 'react-navigation';
 import TabContact from './TabContact';
 import TabChat from './TabChat';
 import TabGroup from './TabGroup';
-const Home = TabNavigator(
+import TabProfile from './TabProfile';
+const Home = createBottomTabNavigator(
     {
         TabContact: { 
             screen: TabContact, 
@@ -27,13 +28,20 @@ const Home = TabNavigator(
                 tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/group.png')} style={[styles.icon, {tintColor}]} />
             }
         },
+        TabProfile: { 
+            screen: TabProfile,
+            navigationOptions: {
+                tabBarLabel: 'Profile',
+                tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/menu.png')} style={[styles.icon, {tintColor}]} />
+            }
+        },
 
     },{
         headerMode:'screen',
         tabBarOptions:{
-            activeTintColor:'blue',
-            inactiveTintColor:'red',
-            // activeBackgroundColor:'yellow'
+            activeTintColor:'white',
+            inactiveTintColor:'black',
+            activeBackgroundColor:'grey'
         },
         tabBarPosition:'bottom',
     }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">newchat</string>
+    <string name="facebook_app_id">2243290679229933</string>
+    <string name="fb_login_protocol_scheme">fb2243290679229933</string>
 </resources>

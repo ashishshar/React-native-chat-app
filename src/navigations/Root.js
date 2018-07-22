@@ -1,12 +1,13 @@
 import { createStackNavigator } from 'react-navigation';
-import Authorized from './Authorized';
+//import Authorized from './Authorized';
 
 import Login from '../screens/unauthorized/Login';
+import Home from './Home';
 
 
 const Root = createStackNavigator({
     Unauthorized : { screen : Login},
-    Authorized : { screen: Authorized },
+    Authorized : { screen: Home },
 },
 {
     headerMode:'screen',

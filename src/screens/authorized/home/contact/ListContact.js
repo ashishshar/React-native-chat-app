@@ -70,18 +70,18 @@ const styles = {
         flex:1
     },
     containerIndecator:{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // flex: 1,
+        // justifyContent: 'center',
+        // alignItems: 'center',
     },
     row:{
-        flexDirection: 'row',
-        justifyContent:'flex-start',
-        alignItems: 'center',
-        height:50,
-        backgroundColor:'#ccc',
-        borderBottomWidth: 1,
-        borderBottomColor:'red'
+        // flexDirection: 'row',
+        // justifyContent:'flex-start',
+        // alignItems: 'center',
+        // height:50,
+        // backgroundColor:'#ccc',
+        // borderBottomWidth: 1,
+        // borderBottomColor:'red'
     },
     avator:{
         width:50,
@@ -89,7 +89,7 @@ const styles = {
         borderWidth:1
     },
     name:{
-        fontSize: 18,
+        // fontSize: 18,
         paddingLeft: 15,
     }
 }
