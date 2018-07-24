@@ -6,7 +6,11 @@ import {
     ListView,
     Image
 } from 'react-native';
-class ViewGroup extends Component {
+import { GiftedChat } from 'react-native-gifted-chat';
+class GroupChat extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.state.params.groupDetail.Name
+    })
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -16,4 +20,4 @@ class ViewGroup extends Component {
     }
 }
 
-export default ViewGroup;
+export default GroupChat;

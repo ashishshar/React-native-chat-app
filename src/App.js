@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Login from './screens/unauthorized/Login';
 import store from './store';
-import AppNavigator from './AppNavigator';
-//import * as firebase from 'firebase';
 import Home from './navigations/Home';
+const firebase = require("firebase");
 const firebaseConfig = {
   apiKey: "AIzaSyDx28-OWpArp_y8llth8Go5-E3lDLXe-js",
   authDomain: "portfoliopro-68771.firebaseapp.com",
@@ -18,7 +17,6 @@ export default class App extends Component{
     loggedIn: null
   };
   componentWillMount() {
-    const firebase = require("firebase");
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -31,12 +29,8 @@ export default class App extends Component{
         });
       }
     });
-    console.log(this.props);
+    //console.log(this.props);
   };
-
-  componentWillUnmount(){
-    console.log('mapStateToProps', state);
-  }
   renderInitial() {
     switch (this.state.loggedIn) {
       case true:

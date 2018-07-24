@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation';
 import ListChat from '../screens/authorized/home/chat/ListChat';
 import AddChat from '../screens/authorized/home/chat/AddChat';
 import Chat from '../screens/authorized/home/chat/EditChat';
+import Conversation from '../screens/authorized/home/contact/Conversation';
 import ViewChat from '../screens/authorized/home/chat/ViewChat';
 import { TabNavigator } from 'react-navigation';
 const TabChat = createStackNavigator({
@@ -15,7 +16,7 @@ const TabChat = createStackNavigator({
         }
     },
     Add: { screen: AddChat },
-    Chat: { screen: Chat },
+    Conversation: { screen: Conversation },
     View: { screen: ViewChat }
 });
 

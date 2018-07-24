@@ -8,33 +8,30 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchListContact } from '../../../../actions';
+import { fetchListChat } from '../../../../actions';
 class ListChat extends Component {
     static navigationOptions = {
         title: 'Chats'
     }
     componentWillMount() {
-
-        this.props.fetchListContact(this.props);
+        this.props.fetchListChat(this.props);
         this.createDataSource(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-
         this.createDataSource(nextProps);
     }
 
-    createDataSource({ contacts }) {
-
+    createDataSource({ oldchats }) {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        this.dataSource = ds.cloneWithRows(contacts);
+        this.dataSource = ds.cloneWithRows(oldchats);
     }
 
     onRowPressed = (friend) => {
         //console.log('friend', friend);
-        this.props.navigation.navigate('Chat', { friend });
+        this.props.navigation.navigate('Conversation', { friend });
     }
 
     renderRow = (item) => {
@@ -96,11 +93,11 @@ const styles = {
     }
 }
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps list', state);
+    console.log('mapStateToProps chat list', state);
     return {
-        contacts: state.contact.contacts,
-        loading: state.contact.loading,
+        oldchats: state.oldchat.oldchats,
+        loading: state.oldchat.loading,
     };
 };
 
-export default connect(mapStateToProps, { fetchListContact })(ListChat);
+export default connect(mapStateToProps, { fetchListChat })(ListChat);

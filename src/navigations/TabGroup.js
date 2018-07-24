@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation';
 import ListGroup from '../screens/authorized/home/group/ListGroup';
 import AddGroup from '../screens/authorized/home/group/AddGroup';
 import EditGroup from '../screens/authorized/home/group/EditGroup';
-import ViewGroup from '../screens/authorized/home/group/ViewGroup';
+import GroupChat from '../screens/authorized/home/group/GroupChat';
 
 const TabGroup = createStackNavigator({
     List: { 
@@ -14,9 +14,9 @@ const TabGroup = createStackNavigator({
             tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/group.png')} style={[styles.icon, { tintColor }]} />
         }
     },
-    Add: { screen: AddGroup },
+    groupchat: { screen: GroupChat },
     edit: { screen: EditGroup },
-    View: { screen: ViewGroup }
+    add: { screen: AddGroup }
 });
 
 const styles = {

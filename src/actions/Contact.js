@@ -1,10 +1,5 @@
 import firebase from 'firebase';
-
-import {
-    FETCH_CONTACT_SUCCESS,
-    FETCH_CONTACT_ERROR
-} from './types';
-
+import { FETCH_CONTACT_SUCCESS, FETCH_CONTACT_ERROR } from './types';
 export const fetchListContact = ({ }) =>{
     const me = firebase.auth().currentUser;
         return (dispatch) => {

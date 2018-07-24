@@ -7,13 +7,6 @@ import TabGroup from './TabGroup';
 import TabProfile from './TabProfile';
 const Home = createBottomTabNavigator(
     {
-        TabContact: { 
-            screen: TabContact, 
-            navigationOptions:{
-                    tabBarLabel:'Contacts',
-                    tabBarIcon: ({tintColor}) => <Image source={ require('../img/icons/contact.png') } style={ [styles.icon, {tintColor}]} />
-            } 
-        },
         TabChat: { 
             screen: TabChat,
             navigationOptions: {
@@ -26,6 +19,13 @@ const Home = createBottomTabNavigator(
             navigationOptions: {
                 tabBarLabel: 'Group',
                 tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/group.png')} style={[styles.icon, {tintColor}]} />
+            }
+        },
+        TabContact: {
+            screen: TabContact,
+            navigationOptions: {
+                tabBarLabel: 'Contacts',
+                tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/contact.png')} style={[styles.icon, { tintColor }]} />
             }
         },
         TabProfile: { 

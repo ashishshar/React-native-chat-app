@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
-    ListView,
-    Image,
     ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { findRoomByUser, sendMessage, } from '../../../../actions';
 import firebase from 'firebase';
-//const messages = [];
-//const roomKey = null;
 class Conversation extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.params.friend.displayName
@@ -19,7 +14,6 @@ class Conversation extends Component {
     // tabBar: {
     //     visible: false
     // }
-    //const me = firebase.auth().currentUser;
 
     state = {
         messages: [],
