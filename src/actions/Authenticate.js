@@ -2,7 +2,7 @@ import { NavigationActions } from 'react-navigation';
 import { LOGIN, LOGOUT } from './types';
 
 export const loginSuccess = (user) => {
-    
+
     return (dispatch) => {
         dispatch({
             type: LOGIN,
@@ -16,7 +16,7 @@ export const loginSuccess = (user) => {
                 })
             ],
         });
-        //console.log('yoyo');
+        console.log('yoyo');
         dispatch(resetNavigator);
     };
 };

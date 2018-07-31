@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import {
     FETCH_ROOM_SUCCESS,
     FETCH_ROOM_ERROR,
@@ -6,9 +5,10 @@ import {
     FECTH_MESSSAGE_SUCCESS,
     FECTH_MESSSAGE_ERROR
 } from './types';
-
+const firebase = require("firebase");
 const rmKey = null;
 export const findRoomByUser = (me, friend) => {
+    
     const db = firebase.database();
     return (dispatch) => {
         let roomKey = null;
@@ -109,6 +109,7 @@ const fetchMessagesByRoom = (dispatch, roomKey, db) => {
 };
 
 export const sendMessage = (me, friend, text, roomKey) => {
+    const firebase = require("firebase");
     const db = firebase.database(); 
     //console.log('ROOMKEY', roomKey);
     return (dispatch) => {

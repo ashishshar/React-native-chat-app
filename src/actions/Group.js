@@ -1,21 +1,23 @@
-import firebase from 'firebase';
+//const firebase = require("firebase");
+//import firebase from 'firebase';
 import { FETCH_GROUP_SUCCESS, FETCH_GROUP_ERROR } from './types';
 export const fetchListGroup = ({ }) => {
+    const firebase = require("firebase");
     const me = firebase.auth().currentUser;
     return (dispatch) => {
         firebase.database().ref('rooms').on('value', snap => {
             const groups = [];
             snap.forEach(group => {
                 const ct = group.val();
-                console.log(ct.Name);
                 if (ct.Name) {
                     groups.push({
+                        gpId: group.key,
                         Name: ct.Name,
+                        Des:ct.Des,
                         photoURL:ct.DisplayImage
                     });
                 }
             });
-            console.log(groups);
             dispatch({
                 type: FETCH_GROUP_SUCCESS,
                 groups

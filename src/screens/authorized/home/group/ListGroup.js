@@ -33,7 +33,7 @@ class ListGroup extends Component{
 
     onRowPressed = (groupDetail) =>{
         //console.log('friend', friend);
-        this.props.navigation.navigate('groupchat', { groupDetail });
+        this.props.navigation.navigate('viewgroup', { groupDetail });
     }
 
     renderRow = ( item ) => {

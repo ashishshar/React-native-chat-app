@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "209957949377",
+    "firebase_url": "https://portfoliopro-68771.firebaseio.com",
+    "project_id": "portfoliopro-68771",
+    "storage_bucket": "portfoliopro-68771.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209957949377:android:3c69699723e2cc52",
+        "android_client_info": {
+          "package_name": "com.newchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209957949377-dd865u80hc6p8i3t192brn0887gpc3q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4DueieGIV3hIZECrnrXvsslEha7_NlBE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
-    ListView,
-    Image,
     ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { findRoomByUser, sendMessage, } from '../../../../actions';
-import firebase from 'firebase';
+
+
+//import firebase from 'firebase';
 //const messages = [];
 //const roomKey = null;
 class Chat extends Component {
@@ -25,6 +24,7 @@ class Chat extends Component {
         messages: [],
     }
     componentWillMount() {
+        const firebase = require("firebase");
         const { me } = this.props;
         const { friend } = this.props.navigation.state.params;
         this.props.findRoomByUser(me, friend);

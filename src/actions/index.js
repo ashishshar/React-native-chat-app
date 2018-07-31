@@ -3,4 +3,4 @@ export * from './Chat';
 export * from './Contact';
 export * from './OldChat';
 export * from './Group';
-//export * from './GroupChat';
+export * from './GroupChat';

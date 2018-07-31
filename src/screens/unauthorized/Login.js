@@ -7,20 +7,12 @@ import {
     ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
+
 // Fachebook LOgin 
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { loginSuccess } from '../../actions/Authenticate';
-// Firebase config
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDx28-OWpArp_y8llth8Go5-E3lDLXe-js",
-//     authDomain: "portfoliopro-68771.firebaseapp.com",
-//     databaseURL: "https://portfoliopro-68771.firebaseio.com",
-//     projectId: "portfoliopro-68771",
-//     storageBucket: "portfoliopro-68771.appspot.com",
-//     messagingSenderId: "209957949377"
-// };
-// firebase.initializeApp(firebaseConfig);
+
+
 class Login extends Component {
     static navigationOptions = {
         header :{
@@ -31,6 +23,9 @@ class Login extends Component {
         logged: false,
         animating: false,
         error:null
+    }
+    componentWillMount(){
+        const firebase = require('firebase');
     }
     onLogin = async () => {
         try {
@@ -101,11 +96,4 @@ const mapStateToProps = (state) => {
         user: state.authentication.user
     };
 };
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//     return {
-//         dispatch1: () => {
-//             dispatch(actionCreator)
-//         }
-//     }
-// }
 export default connect(mapStateToProps, { loginSuccess })(Login);

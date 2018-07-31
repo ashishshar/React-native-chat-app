@@ -6,6 +6,7 @@ import {
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { findRoomByUser, sendMessage, } from '../../../../actions';
+
 import firebase from 'firebase';
 class Conversation extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -19,6 +20,7 @@ class Conversation extends Component {
         messages: [],
     }
     componentWillMount() {
+        const firebase = require("firebase");
         const { me } = this.props;
         const { friend } = this.props.navigation.state.params;
         this.props.findRoomByUser(me, friend);

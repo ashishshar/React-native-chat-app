@@ -1,6 +1,8 @@
-import firebase from 'firebase';
+//const firebase = require("firebase");
+//import firebase from 'firebase';
 import { FETCH_CONTACT_SUCCESS, FETCH_CONTACT_ERROR } from './types';
 export const fetchListContact = ({ }) =>{
+    const firebase = require("firebase");
     const me = firebase.auth().currentUser;
         return (dispatch) => {
         firebase.database().ref('users').on('value', snap =>{

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
 import { createBottomTabNavigator, TabView } from 'react-navigation';
 import TabContact from './TabContact';
 import TabChat from './TabChat';

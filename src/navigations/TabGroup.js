@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ListGroup from '../screens/authorized/home/group/ListGroup';
-import AddGroup from '../screens/authorized/home/group/AddGroup';
+import ViewGroup from '../screens/authorized/home/group/ViewGroup';
 import EditGroup from '../screens/authorized/home/group/EditGroup';
 import GroupChat from '../screens/authorized/home/group/GroupChat';
 
@@ -16,7 +16,7 @@ const TabGroup = createStackNavigator({
     },
     groupchat: { screen: GroupChat },
     edit: { screen: EditGroup },
-    add: { screen: AddGroup }
+    viewgroup: { screen: ViewGroup }
 });
 
 const styles = {

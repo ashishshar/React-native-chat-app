@@ -1,8 +1,9 @@
 import {
-    FETCH_ROOM_SUCCESS,
-    FETCH_ROOM_ERROR,
-    FECTH_MESSSAGE_SUCCESS,
-    FETCH_MESSAGE_ERROR
+    FETCH_GROUP_ROOM_SUCCESS,
+    FETCH_GROUP_ROOM_ERROR,
+    REGISTER_ROOM_GROUP,
+    FECTH_GROUP_MESSSAGE_SUCCESS,
+    FECTH_GROUP_MESSSAGE_ERROR
 } from '../actions/types';
 
 const INITIAL = {
@@ -13,13 +14,15 @@ const INITIAL = {
 
 export default (state = INITIAL, action) => {
     switch (action.type) {
-        case FETCH_ROOM_SUCCESS:
+        case FETCH_GROUP_ROOM_SUCCESS:
             return { ...state, loading: false, roomKey: action.roomKey };
-        case FETCH_ROOM_ERROR:
+        case FETCH_GROUP_ROOM_ERROR:
             return { ...INITIAL, loading: false };
-        case FECTH_MESSSAGE_SUCCESS:
+        case REGISTER_ROOM_GROUP:
+            return { ...state, roomKey: action.roomKey };
+        case FECTH_GROUP_MESSSAGE_SUCCESS:
             return { ...state, loading: false, messages: action.messages };
-        case FETCH_MESSAGE_ERROR:
+        case FECTH_GROUP_MESSSAGE_ERROR:
             return { ...INITIAL, loading: false };
         default:
             return state;
