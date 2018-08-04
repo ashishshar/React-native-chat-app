@@ -45,6 +45,7 @@
 		751A1C7120F8A2A6006058BF /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 751A1C6D20F8A283006058BF /* FBSDKShareKit.framework */; };
 		751A1C7220F8A2A6006058BF /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 751A1C6E20F8A28A006058BF /* Bolts.framework */; };
 		751A1C7320F8A2A6006058BF /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 751A1C6F20F8A2A5006058BF /* FBSDKCoreKit.framework */; };
+		7561A4EA21146E43000BD8A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7561A4C221146E42000BD8A5 /* GoogleService-Info.plist */; };
 		7FC0CE5716B14B539A40B238 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE469D6515834EBDA1E600EF /* Ionicons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -384,6 +385,7 @@
 		751A1C6D20F8A283006058BF /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		751A1C6E20F8A28A006058BF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		751A1C6F20F8A2A5006058BF /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		7561A4C221146E42000BD8A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		81F3985BC71E45DCAC6FFF25 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				7561A4C221146E42000BD8A5 /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = newchat;
@@ -1193,6 +1196,7 @@
 				5C14F621A2C1425BA527A7E5 /* Octicons.ttf in Resources */,
 				025835C73EE049E89FF32710 /* SimpleLineIcons.ttf in Resources */,
 				E395DB9247E448C396566456 /* Zocial.ttf in Resources */,
+				7561A4EA21146E43000BD8A5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
