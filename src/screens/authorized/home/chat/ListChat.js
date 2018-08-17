@@ -27,11 +27,12 @@ class ListChat extends Component {
             rowHasChanged: (r1, r2) => r1 !== r2
         });
         this.dataSource = ds.cloneWithRows(oldchats);
+        //console.log('data', this.dataSource);
     }
 
     onRowPressed = (friend) => {
         //console.log('friend', friend);
-        this.props.navigation.navigate('Conversation', { friend });
+        //this.props.navigation.navigate('Conversation', { friend });
     }
 
     renderRow = (item) => {
