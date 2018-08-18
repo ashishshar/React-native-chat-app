@@ -79,7 +79,7 @@ export const findRoomByUser = (me, friend) => {
 
 
 const fetchMessagesByRoom = (dispatch, roomKey, db) => {
-    //console.log('msg', rmKey);
+    console.log('msg', rmKey);
     db.ref(`messages/${rmKey}`).on('value', snap => {
         const messages = [];
         snap.forEach(message => {

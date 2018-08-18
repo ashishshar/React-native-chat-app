@@ -1,5 +1,3 @@
-//const firebase = require("firebase");
-//import firebase from 'firebase';
 import { FETCH_CONTACT_SUCCESS, FETCH_CONTACT_ERROR } from './types';
 export const fetchListContact = ({ }) =>{
     const firebase = require("firebase");
@@ -13,13 +11,11 @@ export const fetchListContact = ({ }) =>{
                     contacts.push({
                         uid: contact.key,
                         displayName: ct.displayName,
-                        email: ct.email,
                         photoURL: ct.photoURL
                     });
                 }
                 
             });
-
             dispatch({
                 type: FETCH_CONTACT_SUCCESS,
                 contacts

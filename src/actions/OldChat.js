@@ -6,54 +6,64 @@ import {
 export const fetchListChat = ({ }) => {
     const firebase = require("firebase");
     const me = firebase.auth().currentUser;
+    const db = firebase.database();
     return (dispatch) => {
-        firebase.database().ref(`users/${me.uid}/rooms`).on('value', snap => {
+        db.ref(`users/${me.uid}/rooms`).on('value', snap => {
             const oldchats = [];
-            snap.forEach(oldchat => {
-                firebase.database().ref(`rooms/${oldchat.key}`)
-                    .on('value', rooms => {
+            snap.forEach(oldchat => { 
+                db.ref(`rooms/${oldchat.key}`).on('value', rooms => {
                         const ct = rooms.val();
+                        //console.log('datacheck', ct);
                         if (ct.Name) {
                             oldchats.push({
                                 gpId: rooms.key,
                                 Name: ct.Name,
-                                photoURL:ct.DisplayImage
+                                photoURL:ct.DisplayImage,
+                                gp:true,
+                                roomKey: rooms.key
                             });
-                        }else{
-                            oldchats.push({
-                                gpId: rooms.key,
-                                Name: 'Test',
-                                photoURL: 'testing image'
-                            });
-                            //firebase.database().ref(`users/${friend.uid}/rooms/${room.key}`).on('value', snap => {
-                            //     if (snap.val()) {
-                            //         console.log('FOUND ROOM', room.key);
-                            //         roomKey = room.key;
-
-                            //     }
+                            // dispatch({
+                            //     type: FECTH_OLD_CHAT_SUCCESS,
+                            //     oldchats
                             // });
-                            // if (roomKey != null) {
-                            //     return;
-                            // }
+                        }else{
+                            const friend = rooms.node_.children_.root_.left.key;
+                            db.ref(`users/${friend}`).once('value').then(function (snapshot){
+                                //console.log(snapshot.val());
+                                const frnd = snapshot.val();
+                                //console.log(frnd);
+                                oldchats.push({
+                                    gpId: friend,
+                                    Name: frnd.displayName,
+                                    photoURL: frnd.photoURL,
+                                    gp: false,
+                                    roomKey: rooms.key
+                                });
+                                dispatch({
+                                    type: FECTH_OLD_CHAT_SUCCESS,
+                                    oldchats
+                                });
+                            });                         
                         }
-                        dispatch({
-                            type: FECTH_OLD_CHAT_SUCCESS,
-                            oldchats
-                        });
                     }, error => {
-                        console.log('error', error);
+                        //console.log('error', error);
                         dispatch({
                             type: FECTH_OLD_CHAT_ERROR
                         });
                     }
                 );
             });
+            // console.log('im here');
+            // dispatch({
+            //     type: FECTH_OLD_CHAT_SUCCESS,
+            //     oldchats
+            // });
         }, error => {
-            console.log('error', error);
-            dispatch({
-                type: FECTH_OLD_CHAT_ERROR
-            });
-        }
+                //console.log('error', error);
+                dispatch({
+                    type: FECTH_OLD_CHAT_ERROR
+                });
+            }
         );
     }
 }

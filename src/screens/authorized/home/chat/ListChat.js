@@ -27,21 +27,37 @@ class ListChat extends Component {
             rowHasChanged: (r1, r2) => r1 !== r2
         });
         this.dataSource = ds.cloneWithRows(oldchats);
-        //console.log('data', this.dataSource);
     }
 
-    onRowPressed = (friend) => {
-        //console.log('friend', friend);
-        //this.props.navigation.navigate('Conversation', { friend });
+    onRowPressed = (friends) => {
+        if (friends.gp){
+            const groups = [];
+            groups.push({
+                gpId: friends.gpId,
+                Name: friends.Name,
+                Des: friends.Des,
+                photoURL: friends.photoURL
+            });
+            const group = groups[0];
+            this.props.navigation.navigate('groupchat', { group });
+        }else{
+            const friendchat = [];
+            friendchat.push({
+                uid: friends.gpId,
+                displayName: friends.Name,
+                photoURL: friends.photoURL  
+            });
+            const friend = friendchat[0];
+            this.props.navigation.navigate('Conversation', { friend });
+        }
+        
     }
 
     renderRow = (item) => {
         return (
             <TouchableOpacity onPress={this.onRowPressed.bind(this, item)} style={styles.row}>
-
                 <Image source={{ uri: item.photoURL }} style={styles.avator} />
-                <Text style={styles.name}>{item.displayName}</Text>
-
+                <Text style={styles.name}>{item.Name}</Text>
             </TouchableOpacity>
         );
     }
@@ -81,7 +97,7 @@ const styles = {
         height: 50,
         backgroundColor: '#ccc',
         borderBottomWidth: 1,
-        borderBottomColor: 'red'
+        borderBottomColor: 'black'
     },
     avator: {
         width: 50,
@@ -94,7 +110,7 @@ const styles = {
     }
 }
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps chat list', state);
+    //console.log('mapStateToProps list', state);
     return {
         oldchats: state.oldchat.oldchats,
         loading: state.oldchat.loading,

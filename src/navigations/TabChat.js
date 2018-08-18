@@ -2,10 +2,8 @@ import React from 'react';
 import { Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ListChat from '../screens/authorized/home/chat/ListChat';
-import AddChat from '../screens/authorized/home/chat/AddChat';
-import Chat from '../screens/authorized/home/chat/EditChat';
 import Conversation from '../screens/authorized/home/contact/Conversation';
-import ViewChat from '../screens/authorized/home/chat/ViewChat';
+import GroupChat from '../screens/authorized/home/group/GroupChat';
 import { TabNavigator } from 'react-navigation';
 const TabChat = createStackNavigator({
     List: { 
@@ -15,9 +13,8 @@ const TabChat = createStackNavigator({
             tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/chat.png')} style={[styles.icon, { tintColor }]} />
         }
     },
-    Add: { screen: AddChat },
     Conversation: { screen: Conversation },
-    View: { screen: ViewChat }
+    GroupChat: { screen: GroupChat }
 });
 
 const styles = {

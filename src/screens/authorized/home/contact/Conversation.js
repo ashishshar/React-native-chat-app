@@ -24,6 +24,7 @@ class Conversation extends Component {
         const { me } = this.props;
         const { friend } = this.props.navigation.state.params;
         this.props.findRoomByUser(me, friend);
+        console.log(this.props.navigation.state.params);
     }
 
      

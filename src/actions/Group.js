@@ -1,5 +1,3 @@
-//const firebase = require("firebase");
-//import firebase from 'firebase';
 import { FETCH_GROUP_SUCCESS, FETCH_GROUP_ERROR } from './types';
 export const fetchListGroup = ({ }) => {
     const firebase = require("firebase");

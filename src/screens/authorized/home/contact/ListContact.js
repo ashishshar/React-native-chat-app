@@ -96,7 +96,7 @@ const styles = {
     }
 }
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps list', state);
+    //console.log('mapStateToProps list', state);
     return {
         contacts: state.contact.contacts,
         loading: state.contact.loading,
