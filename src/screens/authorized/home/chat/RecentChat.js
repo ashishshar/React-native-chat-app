@@ -5,29 +5,31 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { findRoomByUser, sendMessage, } from '../../../../actions';
+import { findRoomByUserss, sendMessagess } from '../../../../actions';
 
 import firebase from 'firebase';
-class Conversation extends Component {
+class RecentChat extends Component {
     static navigationOptions = ({ navigation }) => ({
-        title: navigation.state.params.friend.displayName
+        title: navigation.state.params.friends.Name
     })
     state = {
         messages: [],
     }
     componentWillMount() {
+        //console.log(this.props.navigation.state.params);
         const firebase = require("firebase");
         const { me } = this.props;
-        const { friend } = this.props.navigation.state.params;
-        this.props.findRoomByUser(me, friend);
-        console.log(this.props.navigation.state.params);
+        const { friends } = this.props.navigation.state.params;
+        this.props.findRoomByUserss(me, friends);
+        //console.log(this.props.navigation.state.params);
     }
-    onSend = (messages = []) => {
+    onSend = (msgs = []) => {
         const { me, roomKey } = this.props;
         const { friend } = this.props.navigation.state.params;
-        this.props.sendMessage(me, friend, messages[0].text, roomKey);
+        console.log(friend);
+        this.props.sendMessagess(me, friend, msgs[0].text, roomKey);
         this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, messages),
+            messages: GiftedChat.append(previousState.msgs, msgs),
         }))
     }
     render() {
@@ -43,7 +45,7 @@ class Conversation extends Component {
             <View style={styles.container}>
 
                 <GiftedChat
-                    messages={this.props.messages}
+                    messages={this.props.msgs}
                     user={{
                         _id: this.props.me.uid
                     }}
@@ -66,13 +68,13 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps', state);
+    //console.log('mapStateToProps', state);
     return {
         me: firebase.auth().currentUser,
-        loading: state.chat.loading,
-        messages: state.chat.messages,
-        roomKey: state.chat.roomKey
+        loading: state.recentchat.loading,
+        msgs: state.recentchat.msgs,
+        roomKey: state.recentchat.roomKey
     };
 };
 
-export default connect(mapStateToProps , { findRoomByUser, sendMessage })(Conversation);
+export default connect(mapStateToProps, { findRoomByUserss, sendMessagess })(RecentChat);

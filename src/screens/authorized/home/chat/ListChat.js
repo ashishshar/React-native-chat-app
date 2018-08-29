@@ -30,27 +30,7 @@ class ListChat extends Component {
     }
 
     onRowPressed = (friends) => {
-        if (friends.gp){
-            const groups = [];
-            groups.push({
-                gpId: friends.gpId,
-                Name: friends.Name,
-                Des: friends.Des,
-                photoURL: friends.photoURL
-            });
-            const group = groups[0];
-            this.props.navigation.navigate('groupchat', { group });
-        }else{
-            const friendchat = [];
-            friendchat.push({
-                uid: friends.gpId,
-                displayName: friends.Name,
-                photoURL: friends.photoURL  
-            });
-            const friend = friendchat[0];
-            this.props.navigation.navigate('Conversation', { friend });
-        }
-        
+        this.props.navigation.navigate('RecentChat', { friends });
     }
 
     renderRow = (item) => {
@@ -94,15 +74,15 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        height: 50,
-        backgroundColor: '#ccc',
+        height: 70,
         borderBottomWidth: 1,
-        borderBottomColor: 'black'
+        borderBottomColor: "#CCC",
+        paddingLeft: 5,
     },
     avator: {
-        width: 50,
-        height: 50,
-        borderWidth: 1
+        width: 60,
+        height: 60,
+        borderRadius: 25,
     },
     name: {
         // fontSize: 18,

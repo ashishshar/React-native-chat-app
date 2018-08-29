@@ -7,10 +7,6 @@ import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { findRoomByUser, sendMessage, } from '../../../../actions';
 
-
-//import firebase from 'firebase';
-//const messages = [];
-//const roomKey = null;
 class Chat extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.params.friend.displayName
