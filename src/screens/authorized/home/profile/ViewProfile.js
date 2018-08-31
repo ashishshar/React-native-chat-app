@@ -10,7 +10,7 @@ class ViewProfile extends Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>View Profile</Text>
+                <Text>Profile</Text>
             </View>
         )
     }

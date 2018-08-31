@@ -32,6 +32,7 @@ class RecentChat extends Component {
             messages: GiftedChat.append(previousState.msgs, msgs),
         }))
     }
+
     render() {
         if (this.props.loading) {
             return (
@@ -43,13 +44,19 @@ class RecentChat extends Component {
         //console.log(this.state);
         return (
             <View style={styles.container}>
-
                 <GiftedChat
                     messages={this.props.msgs}
                     user={{
                         _id: this.props.me.uid
                     }}
                     onSend={this.onSend.bind(this)}
+                    parsePatterns={linkStyle => [
+                        {
+                            pattern: /#(\w+)/,
+                            style: { ...linkStyle, color: 'lightgreen' },
+                            onPress: props => alert(`press on ${props}`),
+                        },
+                    ]}
                 />
             </View>
         );
