@@ -8,7 +8,6 @@ const TabProfile = createStackNavigator({
     List: { 
         screen: ViewProfile,
         navigationOptions: {
-            tabBarLabel: 'Chat',
             tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/menu.png')} style={[styles.icon, { tintColor }]} />
         }
     },

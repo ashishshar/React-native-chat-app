@@ -5,14 +5,15 @@ import {
     Image,
     ListView,
     ActivityIndicator,
-    TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchListChat } from '../../../../actions';
+import { Container, Left, Right, Icon, Body, Item, Input, Content, ListItem, Thumbnail } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 class ListChat extends Component {
     static navigationOptions = {
-        title: 'Chats'
-    }
+        header: null,
+    };
     componentWillMount() {
         this.props.fetchListChat(this.props);
         this.createDataSource(this.props);
@@ -33,12 +34,26 @@ class ListChat extends Component {
         this.props.navigation.navigate('RecentChat', { friends });
     }
 
+    onRowPressedSearch = () => {
+        this.props.navigation.navigate('List');
+    }
+
     renderRow = (item) => {
         return (
-            <TouchableOpacity onPress={this.onRowPressed.bind(this, item)} style={styles.row}>
-                <Image source={{ uri: item.photoURL }} style={styles.avator} />
-                <Text style={styles.name}>{item.Name}</Text>
-            </TouchableOpacity>
+            <ListItem icon onPress={this.onRowPressed.bind(this, item)}>
+                <Grid style={{ marginBottom: 1 }}>
+                    <Col size={20}>
+                        <Thumbnail small source={{ uri: item.photoURL }} />
+                    </Col>
+                    <Col size={75}>
+                        <Text style={{ fontSize: 18, }}>{item.Name}</Text>
+                        <Text style={{ fontSize: 14, }}>Testing Data </Text>
+                    </Col>
+                    <Col size={5}>
+                        <Icon small name="arrow-forward" />
+                    </Col>
+                </Grid>
+            </ListItem>
         );
     }
     render() {
@@ -50,13 +65,36 @@ class ListChat extends Component {
             )
         }
         return (
-            <View style={styles.container}>
-                <ListView
-                    enableEmptySections
-                    dataSource={this.dataSource}
-                    renderRow={this.renderRow.bind(this)}
-                />
-            </View>
+            <Container style={{backgroundColor:'#fff'}}>
+                <Content style={{ paddingLeft: 18, paddingRight: 18, paddingTop: 20, paddingBottom:0, height:10,}}>
+                    <Grid>
+                        <Col style={{ height: 93, flex: 1, alignItems: 'flex-start', justifyContent:'center'   }}>
+                            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Hello Divij</Text>
+                        </Col>
+                        <Col style={{ height: 93, flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                            <Image source={require('../../../../img/profile.jpg')} style={{ height: 50, width: 50, borderRadius: 25 }} />
+                        </Col>
+                    </Grid>
+                    <Grid>
+                        <Col>
+                            <Item regular onPress={this.onRowPressedSearch.bind(this)}>
+                                <Icon active name='search' />
+                                <Input placeholder='Search for communities to join' style={{ height: 40 }} onPress={this.onRowPressedSearch.bind(this)} />
+                            </Item>
+                        </Col>
+                    </Grid>
+                    <Grid style={{marginTop:10}}>
+                        <Col>
+                            <ListView
+                                enableEmptySections
+                                dataSource={this.dataSource}
+                                renderRow={this.renderRow.bind(this)}
+                            />
+                        </Col>
+                    </Grid>
+                </Content>
+                
+            </Container>
         )
     }
 }
@@ -69,20 +107,20 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#fff'
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        height: 70,
+        alignItems: 'flex-start',
+        height: 45,
         borderBottomWidth: 1,
         borderBottomColor: "#CCC",
-        paddingLeft: 5,
     },
     avator: {
-        width: 60,
-        height: 60,
-        borderRadius: 25,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
     },
     name: {
         // fontSize: 18,
@@ -90,7 +128,7 @@ const styles = {
     }
 }
 const mapStateToProps = (state) => {
-    //console.log('mapStateToProps list', state);
+    console.log('mapStateToProps list', state);
     return {
         oldchats: state.oldchat.oldchats,
         loading: state.oldchat.loading,

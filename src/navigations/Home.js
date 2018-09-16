@@ -10,28 +10,24 @@ const Home = createBottomTabNavigator(
         TabChat: { 
             screen: TabChat,
             navigationOptions: {
-                tabBarLabel: 'Chat',
                 tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/chat.png')} style={[styles.icon, {tintColor}]} />
             }
         },
         TabGroup: { 
             screen: TabGroup,
             navigationOptions: {
-                tabBarLabel: 'Group',
                 tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/group.png')} style={[styles.icon, {tintColor}]} />
             }
         },
         TabContact: {
             screen: TabContact,
             navigationOptions: {
-                tabBarLabel: 'Contacts',
                 tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/contact.png')} style={[styles.icon, { tintColor }]} />
             }
         },
         TabProfile: { 
             screen: TabProfile,
             navigationOptions: {
-                tabBarLabel: 'Profile',
                 tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/menu.png')} style={[styles.icon, {tintColor}]} />
             }
         },
@@ -39,9 +35,8 @@ const Home = createBottomTabNavigator(
     },{
         headerMode:'screen',
         tabBarOptions:{
-            activeTintColor:'white',
-            inactiveTintColor:'black',
-            activeBackgroundColor:'grey'
+            activeTintColor:'black',
+            inactiveTintColor:'grey',
         },
         tabBarPosition:'bottom',
     }

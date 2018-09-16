@@ -10,7 +10,6 @@ const TabContact = createStackNavigator({
     List:{
         screen:ListContact,
         navigationOptions: {
-            tabBarLabel: 'Contacts',
             tabBarIcon: ({ tintColor }) => <Image source={require('../img/icons/contact.png')} style={[styles.icon, { tintColor }]} />
         } 
     },

@@ -4,10 +4,11 @@ import {
     View,
     Text,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    Image
 } from 'react-native';
 import { connect } from 'react-redux';
-
+import Swiper from 'react-native-swiper';
 // Fachebook LOgin 
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { loginSuccess } from '../../actions/Authenticate';
@@ -64,31 +65,93 @@ class Login extends Component {
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: '#F5FCFF',}}>
-                <Text>Login Screen</Text>
-                <ActivityIndicator
-                    animating={this.state.animating}
-                    color="#ddd"
-                    size="large"
-                />
+                backgroundColor: 'white',}}>
+                
+                <Image source={require('../../img/logo.png')} style={styles.logoImg}/>
+                <View>
+                    <Text style={styles.titleText}>Be Social</Text>
+                </View>
+                <View style={styles.containerSwip}>
+                    {/* <View style={styles.slide1}>
+                        <Text style={styles.text}>Connect with likeminded people through communities</Text>
+                    </View> */}
+                    <Swiper style={styles.wrapper} width={300} height={120} autoplay loadMinimalSize={22} >
+                        <View style={styles.slide1}>
+                            <Text style={styles.text}>Connect with likeminded people through communities</Text>
+                        </View>
+                        <View style={styles.slide2}>
+                            <Text style={styles.text}>Start your own community to build a network</Text>
+                        </View>
+                    </Swiper>
+                </View>
+                <View>
+                    <Text style={styles.tapText}>By tapping "Log in", you are agree to our Terms and Privacy Policy,</Text>
+                </View>
                 <TouchableOpacity
                     onPress={this.onLogin}
                     style={{
-                        marginTop: 10,
-                        padding: 10,
-                        backgroundColor: '#3b5998',
-                        borderRadius: 5,
+                        marginTop: 0,
+                        backgroundColor: '#FFF',
                     }}
                 >
-                    <Text style={{ color: '#fff' }}>
-                        Login With Facebook
-                    </Text>
+                    <Image source={require('../../img/loginBtn.png')} style={styles.loginImg}/>
                 </TouchableOpacity>
+                <View>
+                    <Text style={styles.tapText}>We dont post anything to Facebook</Text>
+                </View>
             </View>
         );
     }
 }
-
+const styles = StyleSheet.create({
+    containerSwip:{
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        height:180,
+        maxWidth:300
+    },
+    wrapper:{
+    },
+    logoImg:{
+        marginTop: 30,
+        width:125,
+        height:125
+    },
+    titleText:{
+        marginTop: 30,
+        fontSize: 25,
+        fontWeight:"bold"
+    },
+    slide1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 30,
+        height: 120
+    },
+    slide2: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 30,
+        height: 120
+    },
+    text: {
+        color: '#696969',
+        fontSize: 16,
+        paddingHorizontal: 10,
+        lineHeight:30,
+        textAlign:'center'
+    },
+    tapText:{
+        marginHorizontal: 20,
+        paddingHorizontal: 35,
+        paddingVertical: 20,
+        color:'#C0C0C0',
+        fontSize: 12,
+        textAlign:'center'
+    }
+})
 const mapStateToProps = (state) => {
     //console.log('mapStateToProps', state);
     return {
