@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { fetchListChat } from '../../../../actions';
 import { Container, Left, Right, Icon, Body, Item, Input, Content, ListItem, Thumbnail } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+const me = '';
 class ListChat extends Component {
     static navigationOptions = {
         header: null,
@@ -17,6 +18,8 @@ class ListChat extends Component {
     componentWillMount() {
         this.props.fetchListChat(this.props);
         this.createDataSource(this.props);
+        const firebase = require("firebase");
+        me = firebase.auth().currentUser;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -29,27 +32,30 @@ class ListChat extends Component {
         });
         this.dataSource = ds.cloneWithRows(oldchats);
     }
-
+    //const me = firebase.auth().currentUser;
     onRowPressed = (friends) => {
         this.props.navigation.navigate('RecentChat', { friends });
     }
 
     onRowPressedSearch = () => {
-        this.props.navigation.navigate('List');
+        this.props.navigation.navigate('ListGroup');
+    }
+    showProfile = () =>{
+        this.props.navigation.navigate('ViewProfile', { friends });
     }
 
     renderRow = (item) => {
         return (
-            <ListItem icon onPress={this.onRowPressed.bind(this, item)}>
-                <Grid style={{ marginBottom: 1 }}>
-                    <Col size={20}>
-                        <Thumbnail small source={{ uri: item.photoURL }} />
+            <ListItem icon onPress={this.onRowPressed.bind(this, item)} style={{ height: 75}}>
+                <Grid>
+                    <Col size={20} style={{ justifyContent: 'center', alignContent: 'flex-start', paddingBottom:10}}>
+                        <Thumbnail source={{ uri: item.photoURL }}/>
                     </Col>
-                    <Col size={75}>
-                        <Text style={{ fontSize: 18, }}>{item.Name}</Text>
-                        <Text style={{ fontSize: 14, }}>Testing Data </Text>
+                    <Col size={75} style={{ borderBottomColor: '#ccc', borderBottomWidth: 1, justifyContent: 'center', alignContent: 'flex-start',}}>
+                        <Text style={{ fontSize: 18,fontWeight:'600' }}>{item.Name}</Text>
+                        <Text style={{ fontSize: 14, marginTop:7, marginBottom:7 }}>Testing Data </Text>
                     </Col>
-                    <Col size={5}>
+                    <Col size={5} style={{ borderBottomColor: '#ccc', borderBottomWidth: 1, justifyContent: 'center', alignContent: 'flex-end' }}>
                         <Icon small name="arrow-forward" />
                     </Col>
                 </Grid>
@@ -66,24 +72,24 @@ class ListChat extends Component {
         }
         return (
             <Container style={{backgroundColor:'#fff'}}>
-                <Content style={{ paddingLeft: 18, paddingRight: 18, paddingTop: 20, paddingBottom:0, height:10,}}>
-                    <Grid>
-                        <Col style={{ height: 93, flex: 1, alignItems: 'flex-start', justifyContent:'center'   }}>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Hello Divij</Text>
+                <Content style={{ paddingLeft: 5, paddingRight: 10, paddingTop: 20, paddingBottom:0,}}>
+                    <Grid style={{ paddingLeft: 25, paddingRight: 25}}>
+                        <Col size={70} style={{ height: 93,alignItems: 'flex-start', justifyContent:'center'   }}>
+                            <Text style={{ fontSize: 26, fontWeight: '400' }}>Hi {me.displayName}</Text>
                         </Col>
-                        <Col style={{ height: 93, flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                            <Image source={require('../../../../img/profile.jpg')} style={{ height: 50, width: 50, borderRadius: 25 }} />
+                        <Col size={30} style={{ height: 93,alignItems: 'flex-end', justifyContent: 'center' }}>
+                            <Image source={{uri : me.photoURL}} style={{ height: 40, width: 40, borderRadius: 20 }} />
                         </Col>
                     </Grid>
-                    <Grid>
+                    <Grid style={{ paddingLeft: 25, paddingRight: 25 }}>
                         <Col>
                             <Item regular onPress={this.onRowPressedSearch.bind(this)}>
-                                <Icon active name='search' />
-                                <Input placeholder='Search for communities to join' style={{ height: 40 }} onPress={this.onRowPressedSearch.bind(this)} />
+                                <Icon active name='search' style={{color:'#ccc'}} />
+                                <Input onFocus={this.onRowPressedSearch.bind(this)} placeholder='Search for communities to join' style={{ height: 35, shadowColor:'#ccc', shadowRadius:20 , borderColor:'#ccc' , color:'#ccc' }} />
                             </Item>
                         </Col>
                     </Grid>
-                    <Grid style={{marginTop:10}}>
+                    <Grid style={{marginTop:20}}>
                         <Col>
                             <ListView
                                 enableEmptySections
@@ -109,23 +115,6 @@ const styles = {
         alignItems: 'center',
         backgroundColor: '#fff'
     },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        height: 45,
-        borderBottomWidth: 1,
-        borderBottomColor: "#CCC",
-    },
-    avator: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-    },
-    name: {
-        // fontSize: 18,
-        paddingLeft: 15,
-    }
 }
 const mapStateToProps = (state) => {
     console.log('mapStateToProps list', state);

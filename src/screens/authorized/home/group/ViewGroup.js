@@ -36,6 +36,21 @@ class ViewGroup extends Component {
     render() {
         return (
             <Container style={{ backgroundColor: '#fff' }}>
+                <Grid style={{ position: 'absolute', marginTop: 25, zIndex: 1 }}>
+                    <Col size={20}>
+                        <Button transparent>
+                            <Icon name='arrow-back' style={{ color: 'white' }} />
+                        </Button>
+                    </Col>
+                    <Col size={65}>
+
+                    </Col>
+                    <Col style={{ alignItems: 'flex-end' }} size={15}>
+                        <Button transparent>
+                            <Text style={{ color: 'blue' }}>edit</Text>
+                        </Button>
+                    </Col>
+                </Grid>
                 <Content style={{}}>
                     <Image source={require('../../../../img/groupback.jpg')} style={{ height: 270 }} />
                     <Grid style={{}}>

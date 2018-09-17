@@ -6,12 +6,14 @@ import {
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { findRoomByUserss, sendMessagess } from '../../../../actions';
+import { Container, Left, Right, Icon, Body, Item, Input, Content, ListItem, Thumbnail, Header, Button, Title, Text, Subtitle } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import firebase from 'firebase';
 class RecentChat extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        title: navigation.state.params.friends.Name
-    })
+    static navigationOptions = {
+        header: null,
+    };
     state = {
         messages: [],
     }
@@ -21,7 +23,7 @@ class RecentChat extends Component {
         const { me } = this.props;
         const { friends } = this.props.navigation.state.params;
         this.props.findRoomByUserss(me, friends);
-        //console.log(this.props.navigation.state.params);
+        console.log(friends);
     }
     onSend = (msgs = []) => {
         const { me, roomKey } = this.props;
@@ -43,22 +45,35 @@ class RecentChat extends Component {
         }
         //console.log(this.state);
         return (
-            <View style={styles.container}>
-                <GiftedChat
-                    messages={this.props.msgs}
-                    user={{
-                        _id: this.props.me.uid
-                    }}
-                    onSend={this.onSend.bind(this)}
-                    parsePatterns={linkStyle => [
-                        {
-                            pattern: /#(\w+)/,
-                            style: { ...linkStyle, color: 'lightgreen' },
-                            onPress: props => alert(`press on ${props}`),
-                        },
-                    ]}
-                />
-            </View>
+            <Container>
+                <Header style={{height:80, paddingBottom:3}}>
+                    <Left style={{ alignItems: 'flex-end' }}>
+                        <Button transparent>
+                            <Icon name='arrow-back' style={{marginRight: 10,}}/>
+                            <Thumbnail style={{ marginLeft: 10,width:40, height:40, borderRadius:20 }} source={{ uri: this.props.navigation.state.params.friends.photoURL }} />
+                        </Button>
+                    </Left>
+                    <Body style={{alignItems:'flex-start'}}>
+                        <Title>{this.props.navigation.state.params.friends.Name}</Title>
+                        <Subtitle>Online</Subtitle>
+                    </Body>
+                    <Right></Right>
+                </Header>
+                    <GiftedChat
+                        messages={this.props.msgs}
+                        user={{
+                            _id: this.props.me.uid
+                        }}
+                        onSend={this.onSend.bind(this)}
+                        parsePatterns={linkStyle => [
+                            {
+                                pattern: /#(\w+)/,
+                                style: { ...linkStyle, color: 'lightgreen' },
+                                onPress: props => alert(`press on ${props}`),
+                            },
+                        ]}
+                    />
+            </Container>
         );
     }
 }

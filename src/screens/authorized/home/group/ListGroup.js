@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchListGroup } from '../../../../actions';
-import { Container, Left, Right, Icon, Body, Item, Input, Content, ListItem, Thumbnail, List, Button } from 'native-base';
+import { Container, Left, Right, Icon, Body, Item, Input, Content, ListItem, Thumbnail, List, Button, Header } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 class ListGroup extends Component{
     static navigationOptions = {
@@ -35,6 +35,9 @@ class ListGroup extends Component{
 
     onRowPressed = (groupDetail) =>{
         this.props.navigation.navigate('viewgroup', { groupDetail });
+    }
+    onCancelPressed = () => {
+        this.props.navigation.navigate('ListChat');
     }
 
     renderRow = ( item ) => {
@@ -65,21 +68,17 @@ class ListGroup extends Component{
         }
         return(
             <Container style={{ backgroundColor: '#fff' }}>
-                <Content style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 40, paddingBottom: 0, height: 10, }}>
-                    <Grid style={{ paddingLeft: 10, paddingRight:10}}>
-                        <Col size={80}>
-                            <Item regular>
-                                <Icon active name='search' />
-                                <Input placeholder='Search for communities to join' style={{ height: 40, width: 250 }} />
-                                <Icon active name='close' />
-                            </Item>
-                        </Col>
-                        <Col size={20}>
-                            <Button style={{ alignSelf: 'flex-end', justifyContent: 'flex-start' }} transparent>
-                                <Text>Cancel</Text>
-                            </Button>
-                        </Col>
-                    </Grid>
+                <Header searchBar>
+                    <Item regular style={{ backgroundColor: '#fff' }} >
+                        <Icon name="ios-search" />
+                        <Input placeholder="Search" autoFocus/>
+                        <Icon name="close" />
+                    </Item>
+                    <Button transparent onPress={this.onCancelPressed.bind(this)}>
+                        <Text>Cancel</Text>
+                    </Button>
+                </Header>
+                <Content style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 0, }}>
                     <Grid>
                         <Col>
                             <ListView
